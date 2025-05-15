@@ -1,19 +1,20 @@
-"use client"
+'use client';
 
-import { Suspense } from "react"
-import Link from "next/link"
-import { ArrowLeft, Share2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import MidpointResult from "@/components/midpoint-result"
+import { Suspense, use } from 'react';
+import Link from 'next/link';
+import { ArrowLeft, Share2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import MidpointResult from '@/components/midpoint-result';
 
 type Props = {
-  params: { stations: string }
-}
+  params: Promise<{ stations: string }>;
+};
 
 export default function RoutePageClient({ params }: Props) {
-  const stationNames = params.stations.split("_")
-  const station1 = decodeURIComponent(stationNames[0] || "")
-  const station2 = decodeURIComponent(stationNames[1] || "")
+  const { stations } = use(params);
+  const stationNames = stations.split('_');
+  const station1 = decodeURIComponent(stationNames[0] || '');
+  const station2 = decodeURIComponent(stationNames[1] || '');
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 md:p-24">
@@ -24,7 +25,9 @@ export default function RoutePageClient({ params }: Props) {
               <ArrowLeft className="h-5 w-5" />
             </Button>
           </Link>
-          <h1 className="text-xl font-bold text-center flex-1">中間地点検索結果</h1>
+          <h1 className="text-xl font-bold text-center flex-1">
+            中間地点検索結果
+          </h1>
           <Button
             variant="ghost"
             size="icon"
@@ -33,7 +36,7 @@ export default function RoutePageClient({ params }: Props) {
                 navigator.share({
                   title: `${station1}駅と${station2}駅の中間地点`,
                   url: window.location.href,
-                })
+                });
               }
             }}
           >
@@ -54,5 +57,5 @@ export default function RoutePageClient({ params }: Props) {
         </div>
       </div>
     </main>
-  )
+  );
 }
