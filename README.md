@@ -1,7 +1,7 @@
 
 # 中間駅ファインダー (Midpoint Station Finder)
 
-このプロジェクトは、2つの指定された駅の中間地点となる駅を簡単に検索できるウェブアプリケーションです。React Router, Vite, Cloudflare Pages, Cloudflare D1, Drizzle ORM, TypeScript, Tailwind CSS を使用して構築されています。
+このプロジェクトは、2つの指定された駅の中間地点となる駅を簡単に検索できるウェブアプリケーションです。React Router, Vite, Cloudflare Workers, Cloudflare D1, Drizzle ORM, TypeScript, Tailwind CSS を使用して構築されています。
 
 ## 主な機能
 
@@ -23,7 +23,7 @@
 * **スタイリング:** Tailwind CSS, shadcn/ui (components), Sonner (notifications)
 * **データベース:** Cloudflare D1
 * **ORM:** Drizzle ORM
-* **デプロイ:** Cloudflare Pages, Wrangler CLI
+* **デプロイ:** Cloudflare Workers, Wrangler CLI
 * **リンター/フォーマッター:** Biome, Prettier
 
 ## セットアップと開発
@@ -33,7 +33,7 @@
 プロジェクトのルートディレクトリで以下のコマンドを実行します。
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. データベースのセットアップ (ローカル開発用)
@@ -41,7 +41,7 @@ npm install
 Cloudflare D1 データベースをローカルでセットアップし、マイグレーションを実行します。
 
 ```bash
-npm run db:migrate
+pnpm run db:migrate
 ```
 
 このコマンドは `wrangler.jsonc` で定義されたローカルD1データベース (`DB`) に対してマイグレーションを適用します。
@@ -51,7 +51,7 @@ npm run db:migrate
 以下のコマンドで開発サーバーを起動します。HMR (ホットモジュールリプレイスメント) が有効になります。
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 アプリケーションは `http://localhost:5173` で利用可能になります。
@@ -61,7 +61,7 @@ npm run dev
 プロダクション用にアプリケーションをビルドします。
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ビルドされたアセットは `dist` ディレクトリ (または React Router の設定に基づくディレクトリ) に出力されます。
@@ -87,15 +87,15 @@ Drizzle ORMが本番D1データベースと通信できるように、`drizzle.c
 その後、本番データベースに対してマイグレーションを実行します。
 
 ```sh
-npm run db:migrate-production
+pnpm run db:migrate-production
 ```
 
 ### 3. デプロイ
 
-アプリケーションをビルドし、Cloudflare Pages にデプロイします。
+アプリケーションをビルドし、Cloudflare Workers にデプロイします。
 
 ```sh
-npm run deploy
+pnpm run deploy
 ```
 
 ### プレビューデプロイ (任意)
