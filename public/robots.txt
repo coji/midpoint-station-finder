@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://midpoint-station-finder.techtalkjp.workers.dev/sitemap.xml
