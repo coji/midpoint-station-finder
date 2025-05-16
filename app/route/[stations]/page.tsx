@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function RoutePage({ params }: Props) {
-  return <RoutePageClient params={params} />;
+export default async function RoutePage({ params }: Props) {
+  const { stations } = await params;
+  return <RoutePageClient params={{ stations }} />;
 }

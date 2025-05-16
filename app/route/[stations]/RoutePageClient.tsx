@@ -7,11 +7,11 @@ import { Button } from '@/components/ui/button';
 import MidpointResult from '@/components/midpoint-result';
 
 type Props = {
-  params: Promise<{ stations: string }>;
+  params: { stations: string };
 };
 
 export default function RoutePageClient({ params }: Props) {
-  const { stations } = use(params);
+  const { stations } = params;
   const stationNames = stations.split('_');
   const station1 = decodeURIComponent(stationNames[0] || '');
   const station2 = decodeURIComponent(stationNames[1] || '');
