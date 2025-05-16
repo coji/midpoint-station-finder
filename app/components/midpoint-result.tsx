@@ -43,18 +43,15 @@ export default function MidpointResult({
             この駅は両方からアクセスしやすい位置にあります。
           </p>
 
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => {
-              window.open(
-                `https://www.google.com/maps/search/?api=1&query=${midpoint}駅`,
-                '_blank',
-              )
-            }}
-          >
-            <MapPin className="mr-2 h-4 w-4" />
-            地図で見る
+          <Button variant="outline" className="w-full" asChild>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${midpoint}駅`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MapPin className="mr-2 h-4 w-4" />
+              地図で見る
+            </a>
           </Button>
         </div>
       </CardContent>
