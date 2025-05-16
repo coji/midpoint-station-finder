@@ -1,8 +1,15 @@
-export const loader = () => {
+import type { Route } from './+types/sitemap'
+
+export const loader = ({ request }: Route.LoaderArgs) => {
+  const url = new URL(request.url)
+  const baseUrl = `${url.protocol}//${url.host}`
+
+  const lastModified = new Date().toISOString()
+
   const locations = [
     {
-      loc: 'https://midpoint-station-finder.vercel.app',
-      lastmod: new Date().toISOString(),
+      loc: baseUrl,
+      lastmod: lastModified,
       changefreq: 'daily',
       priority: 1,
     },
@@ -21,12 +28,17 @@ export const loader = () => {
     const routeId = `${encodeURIComponent(sortedStations[0])}_${encodeURIComponent(sortedStations[1])}`
 
     locations.push({
-      loc: `https://midpoint-station-finder.vercel.app/route/${routeId}`,
-      lastmod: new Date().toISOString(),
+      loc: `${baseUrl}/route/${routeId}`,
+      lastmod: lastModified,
       changefreq: 'weekly',
       priority: 0.8,
     })
   }
+
+  const headers = new Headers({
+    'Content-Type': 'application/xml',
+    'Cache-Control': 'public, max-age=86400',
+  })
 
   return new Response(
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -43,6 +55,6 @@ ${locations
   )
   .join('')}
 </urlset>`,
-    { headers: { 'Content-Type': 'application/xml' } },
+    { headers },
   )
 }
